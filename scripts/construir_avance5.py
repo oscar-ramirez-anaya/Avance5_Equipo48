@@ -93,20 +93,23 @@ comparación contra una galería de SKU y planograma). Las recomendaciones que g
 
 ### 1.2 Datos usados en esta ejecución
 
-La ejecución con la galería de Bnext requiere el Jetson Orin NX y el servidor de Bnext, a los que
-el equipo no tuvo acceso durante la ventana de entrega: el servidor no respondió a través de la VPN y
-el Jetson apareció fuera de línea. Para no detener el avance, **esta libreta se ejecutó con un
-conjunto público que tiene la misma estructura que la galería de Bnext**: el *Grocery Store
-Dataset* (Klasson et al., 2019, licencia MIT), con 5 125 fotos de productos tomadas con un
-teléfono en supermercados, **una carpeta por producto** (81 productos finos, de ellos 42 en
-empaque como leche, jugo y yogur, que son productos típicos de refrigerador) y una imagen icónica
-de catálogo por producto.
+> **Esta libreta se ejecutó con datos dummy.** Durante la ventana de entrega no hubo acceso a la
+> infraestructura de la empresa sponsor, y por el acuerdo de confidencialidad sus datos no pueden
+> salir de ella. **El lunes 2 de noviembre de 2026 la misma libreta se ejecutará con los datos de la
+> empresa sponsor, dentro de su infraestructura.** El repositorio se actualizará solo con métricas y
+> gráficas agregadas, sin imágenes ni información confidencial.
 
-- El código no depende del conjunto: para la galería de Bnext basta con cambiar `A5_DATA_DIR`
-  y las listas de partición. Las cifras de esta libreta **no** son resultados sobre datos de
-  Bnext; se reportan como evidencia del método y se repetirán con la galería real.
-- Los ensambles del detector (fusión de cajas de FCOS y Faster R-CNN) requieren los
-  modelos entrenados en el Jetson y se dejan para la siguiente ejecución (sección 8).
+Como datos dummy se usó un conjunto público con la misma estructura que la galería de SKU: el
+*Grocery Store Dataset* (Klasson et al., 2019, licencia MIT). Tiene 5 125 fotos de productos
+tomadas con un teléfono en supermercados, **una carpeta por producto** (81 productos finos, de
+ellos 31 en empaque, como leche, jugo y yogur, típicos de refrigerador) y una imagen icónica de
+catálogo por producto.
+
+- El código no depende del conjunto: para los datos de la empresa sponsor basta con cambiar
+  `A5_DATA_DIR` y las listas de partición. Las cifras de esta libreta **no** son resultados sobre
+  datos de la empresa; se reportan como evidencia del método.
+- Los ensambles del detector (fusión de cajas de FCOS y Faster R-CNN) requieren los modelos
+  entrenados con los datos de la empresa y se harán en esa misma ejecución (sección 8).
 - La tarea que se evalúa es la del paso 5 del pipeline: dado un recorte de producto, identificar
   su SKU contra la galería.
 """)
@@ -909,7 +912,7 @@ interpretacion('porsku')
 
 # ====================================================================== 8. siguiente ejecución
 md("""
-## 8. Siguiente ejecución con los datos de Bnext
+## 8. Ejecución del 2 de noviembre de 2026 con los datos de la empresa sponsor
 
 El código de esta libreta corre sin cambios sobre la galería de Bnext: cada carpeta es un SKU y
 se reemplaza la partición oficial por una partición por foto dentro de cada carpeta. Al

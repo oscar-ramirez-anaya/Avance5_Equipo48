@@ -30,7 +30,9 @@
 
 Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos individuales del Avance 4 (histograma HSV y DINOv2) y el embedding recomendado en la sesión con Bnext del 28 de octubre (DINOv2 con aprendizaje de métrica) se combinan en **cinco ensambles, homogéneos y heterogéneos**, para identificar el SKU de cada producto contra una galería con una carpeta por SKU. Después se elige el modelo final con criterios de negocio.
 
-> **Datos de esta ejecución.** Durante la ventana de entrega no hubo acceso al servidor ni al Jetson de Bnext, y los datos de Bnext no pueden salir de su infraestructura. Por eso la libreta se ejecutó con el *Grocery Store Dataset* (Klasson et al., 2019; licencia MIT), que tiene la misma estructura de una carpeta por producto. Las cifras validan el método y **no son resultados sobre datos de Bnext**. El mismo código se ejecutará con la galería real.
+> **Esta entrega se ejecutó con datos dummy.** Durante la ventana de entrega no hubo acceso a la infraestructura de la empresa sponsor, y por el acuerdo de confidencialidad sus datos no pueden salir de ella. Como datos dummy se usó el *Grocery Store Dataset* (Klasson et al., 2019; licencia MIT), que tiene la misma estructura de una carpeta por producto. Las cifras validan el método y **no son resultados sobre datos de la empresa sponsor**.
+>
+> **El lunes 2 de noviembre de 2026 ejecutaremos la misma libreta con los datos de la empresa sponsor, dentro de su infraestructura.** El repositorio se actualizará solo con métricas y gráficas agregadas, sin imágenes ni información confidencial.
 
 | Indicador | Resultado (prueba) |
 |---|---|
@@ -76,7 +78,7 @@ Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos i
 ![Matriz de confusión](figuras/03_matriz_confusion.png)
 ![ROC y precisión-recall](figuras/04_roc_pr_desconocidos.png)
 
-## Pendiente para la ejecución con datos de Bnext
+## Ejecución del lunes 2 de noviembre con los datos de la empresa sponsor
 
 - Ejecutar la libreta en el Jetson con la galería de SKU de Bnext.
 - Hacer los ensambles del detector (WBF de FCOS y Faster R-CNN, FCOS con TTA).

@@ -78,14 +78,14 @@ ol([
     "<b>Pendientes:</b> reentrenar el detector con refrigeradores, correr el pipeline completo en uno o dos refrigeradores y solicitar a Bnext el planograma esperado.",
 ])
 h3("s13", "1.3 Datos usados en esta ejecución")
-p("Ejecutar con la galería de Bnext requiere el Jetson Orin NX y el servidor de Bnext. El equipo no tuvo acceso a ellos durante la ventana de entrega: el servidor no respondió a través de la VPN y el Jetson apareció fuera de línea. Como los datos de Bnext no pueden salir de su infraestructura, la libreta se ejecutó con un conjunto público que tiene la misma estructura que la galería: el <i>Grocery Store Dataset</i> (Klasson et al., 2019), con licencia MIT. Contiene fotos tomadas con un teléfono en supermercados, organizadas en una carpeta por producto, y una imagen icónica de catálogo por producto (Tabla 1).")
+p("<b>Esta entrega se ejecutó con datos dummy.</b> Durante la ventana de entrega no hubo acceso a la infraestructura de la empresa sponsor, y por el acuerdo de confidencialidad sus datos no pueden salir de ella. Como datos dummy se usó un conjunto público con la misma estructura que la galería de SKU: el <i>Grocery Store Dataset</i> (Klasson et al., 2019), con licencia MIT. Contiene fotos tomadas con un teléfono en supermercados, organizadas en una carpeta por producto, y una imagen icónica de catálogo por producto (Tabla 1).")
 tabla("t1", "Conjunto de datos de esta ejecución", ["Grupo", "Productos", "Entrenamiento (galería)", "Validación", "Prueba"], [
     ["Empaque (leche, jugo, yogur, soya, avena)", "31", "864", "100", "781"],
     ["Fruta", "28", "1 142", "111", "1 117"],
     ["Verdura", "22", "634", "85", "587"],
     ["<b>Total</b>", "<b>81</b>", "<b>2 640</b>", "<b>296</b>", "<b>2 485</b>"],
 ])
-nota("Alcance de las cifras", "Las cifras de este reporte <b>no</b> son resultados sobre datos de Bnext. Son evidencia del método, que se repetirá con la galería real cambiando solo la ruta de los datos. Los ensambles del detector (fusión de cajas de FCOS y Faster R-CNN) requieren los modelos entrenados en el Jetson y quedan para la siguiente ejecución.")
+nota("Datos dummy y ejecución con los datos de la empresa sponsor", "Las cifras de este reporte <b>no</b> son resultados sobre datos de la empresa sponsor; son evidencia del método. <b>El lunes 2 de noviembre de 2026 la misma libreta se ejecutará con los datos de la empresa sponsor, dentro de su infraestructura</b>, cambiando solo la ruta de los datos. En esa ejecución se harán también los ensambles del detector (fusión de cajas de FCOS y Faster R-CNN). El repositorio se actualizará solo con métricas y gráficas agregadas, sin imágenes ni información confidencial.")
 p("<b>Protocolo.</b> Se usa la partición oficial del conjunto, que es por foto. Las fotos de entrenamiento forman la galería, y un recorte se identifica con el SKU cuya carpeta contiene la foto más parecida. Diez productos se dejan fuera del entrenamiento del embedding, pero sí están en la galería: así se mide qué tan bien se reconoce un SKU dado de alta sin reentrenar. La <b>métrica principal es el F1 macro</b>, como en el Avance 3, porque cada SKU pesa igual en el anaquel. Como métricas de apoyo se usan top-1, top-5 (útil para revisión asistida) y el rango recíproco medio (MRR).")
 
 h2("s2", "2. Modelos individuales")
@@ -192,7 +192,7 @@ h3("s56", "5.6 Desempeño por SKU")
 fig("f7", "celda-050", "F1 por SKU con el modelo final, por grupo de producto; el asterisco señala los SKU nuevos.")
 p("Las verduras son el grupo más fácil (F1 medio de 0.972) y las frutas siguen (0.935). Los productos en empaque son los más difíciles (0.923; mínimo de 0.683), justamente el grupo más parecido a los productos de refrigerador. Los SKU con menor F1 tienen todos una variante casi idéntica en la galería: yogur Yoggi de vainilla y de fresa, leches de soya Alpro y leche Arla semidescremada. Para Bnext, la prioridad de captura de fotos y de negativos difíciles deben ser las presentaciones de una misma marca.")
 
-h2("s6", "6. Siguiente ejecución con los datos de Bnext")
+h2("s6", "6. Ejecución del 2 de noviembre con los datos de la empresa sponsor")
 ol([
     "Copiar al Jetson las carpetas de SKU y las escenas de refrigerador, sin que salgan de la infraestructura de Bnext, y ejecutar la libreta con la ruta de esos datos.",
     "Ensambles del detector: fusión ponderada de cajas (WBF; Solovyev et al., 2021) de FCOS y Faster R-CNN v2, que es heterogénea, y FCOS con aumentos en prueba, que es homogénea. Se ajustarán en validación con el protocolo del Avance 4.",
@@ -206,17 +206,17 @@ ol([
     "<b>Mayor mejora.</b> Viene del aprendizaje de métrica recomendado por Bnext: el F1 macro pasa de 0.668 a 0.940, y los SKU nuevos se reconocen casi igual que los vistos.",
     "<b>Modelo final: stacking.</b> F1 macro de 0.940, top-1 de 0.937 y top-5 de 1.000. Es el mejor de los modelos que permiten dar de alta un SKU sin reentrenar.",
     "<b>Hallazgo metodológico.</b> Ajustar ensambles con validación cruzada dentro de las fotos de entrenamiento tiene fuga, por las ráfagas de fotos. Hay que ajustar con fotos de otra sesión.",
-    "<b>Limitaciones.</b> Las cifras son de un conjunto público y no de Bnext. Detectar productos desconocidos todavía no es confiable para automatizar. Los ensambles del detector están pendientes.",
+    "<b>Limitaciones.</b> Las cifras son de datos dummy y no de la empresa sponsor; el lunes 2 de noviembre se ejecuta con sus datos. Detectar productos desconocidos todavía no es confiable para automatizar. Los ensambles del detector están pendientes.",
 ])
 
 h2("anexo", "Anexo A. Declaración de uso de IA y contribución del equipo")
 tabla("ta1", "Uso de herramientas de IA", ["Herramienta utilizada", "Propósito de uso", "Responsabilidad: qué revisó o validó el equipo"], [
     ["Anthropic. (2026). Claude (Opus 5.5) [Modelo de lenguaje grande]. https://claude.ai/",
-     "Generar código de la libreta (carga de datos, aprendizaje de métrica, ensambles, optimización con Optuna y gráficas), búsqueda de un conjunto público con la misma estructura que la galería de Bnext, apoyo en la redacción de las interpretaciones y del reporte.",
+     "Generar código de la libreta (carga de datos, aprendizaje de métrica, ensambles, optimización con Optuna y gráficas), búsqueda de un conjunto público como datos dummy, con la misma estructura que la galería de SKU, apoyo en la redacción de las interpretaciones y del reporte.",
      "El equipo definió los modelos, las pérdidas y los ensambles a partir de la sesión con Bnext del 28 de octubre, revisó el código generado, ejecutó la libreta completa de principio a fin y validó cada cifra e interpretación contra las salidas."],
 ])
 tabla("ta2", "Contribución individual", ["Integrante", "Contribución al avance"], [
-    ["Oscar Alberto Ramírez Anaya", "Incorporación de las recomendaciones de la sesión con Bnext, selección y preparación del conjunto público sustituto, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio."],
+    ["Oscar Alberto Ramírez Anaya", "Incorporación de las recomendaciones de la sesión con Bnext, selección y preparación de los datos dummy, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio."],
     ["Jesús Soto Medrano", "Propuesta de modelos y pérdidas de métrica en la sesión con Bnext (triplet, multi-similitud, SupCon y fusión con HSV), ensambles heterogéneos (votación, stacking y blending), tabla comparativa, elección del modelo final y análisis de las gráficas."],
 ])
 
