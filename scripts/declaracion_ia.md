@@ -4,14 +4,14 @@
 
 | Herramienta utilizada | Propósito de uso | Responsabilidad: qué revisó o validó el equipo |
 |---|---|---|
-| Anthropic. (2026). Claude (Opus 5.5) [Modelo de lenguaje grande].<br>https://claude.ai/ | Generar código de la libreta (carga de datos, aprendizaje de métrica, ensambles, optimización con Optuna y gráficas), búsqueda de un conjunto público como datos dummy, con la misma estructura que la galería de SKU, apoyo en la redacción de las interpretaciones y del reporte. | El equipo definió los modelos, las pérdidas y los ensambles a partir de la sesión con Bnext del 28 de octubre, revisó el código generado, ejecutó la libreta completa de principio a fin y validó cada cifra e interpretación contra las salidas. |
+| Anthropic. (2026). Claude (Opus 5.5) [Modelo de lenguaje grande].<br>https://claude.ai/ | Generar código de la libreta (carga de datos, aprendizaje de métrica, ensambles, optimización con Optuna y gráficas), búsqueda de un conjunto público como datos dummy, con la misma estructura que la galería de SKU, apoyo en la redacción de las interpretaciones y del reporte. | El equipo definió los modelos, las pérdidas y los ensambles a partir de la sesión con la empresa sponsor del 28 de octubre, revisó el código generado, ejecutó la libreta completa de principio a fin y validó cada cifra e interpretación contra las salidas. |
 
 ### Contribución individual
 
 | Integrante | Contribución al avance |
 |---|---|
-| Oscar Alberto Ramírez Anaya | Incorporación de las recomendaciones de la sesión con Bnext, selección y preparación de los datos dummy, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio. |
-| Jesús Soto Medrano | Propuesta de modelos y pérdidas de métrica en la sesión con Bnext (triplet, multi-similitud, SupCon y fusión con HSV), ensambles heterogéneos (votación, stacking y blending), tabla comparativa, elección del modelo final y análisis de las gráficas. |
+| Oscar Alberto Ramírez Anaya | Incorporación de las recomendaciones de la sesión con la empresa sponsor, selección y preparación de los datos dummy, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio. |
+| Jesús Soto Medrano | Propuesta de modelos y pérdidas de métrica en la sesión con la empresa sponsor (triplet, multi-similitud, SupCon y fusión con HSV), ensambles heterogéneos (votación, stacking y blending), tabla comparativa, elección del modelo final y análisis de las gráficas. |
 
 ### Decisiones principales
 

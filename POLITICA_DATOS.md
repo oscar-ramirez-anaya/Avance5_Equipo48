@@ -1,28 +1,28 @@
 # Política de manejo de datos y publicación
 
-Acuerdo de trabajo entre el Equipo 48 y Bnext para cumplir con los entregables del Tecnológico de
+Acuerdo de trabajo entre el Equipo 48 y la empresa sponsor para cumplir con los entregables del Tecnológico de
 Monterrey, que exigen un repositorio público en GitHub, sin exponer información confidencial de la
 organización. Complementa el convenio de confidencialidad (NDA) firmado por los integrantes.
 
 ## Reglas
 
-1. **Código en GitHub, ejecución en Bnext.** El código se versiona en este repositorio; su ejecución
-   sobre los datos del proyecto se realiza dentro del servidor de Bnext.
+1. **Código en GitHub, ejecución en la empresa sponsor.** El código se versiona en este repositorio; su ejecución
+   sobre los datos del proyecto se realiza dentro del servidor de la empresa sponsor.
 2. **Trabajo con datos solo en el servidor.** Acceso a los datasets, entrenamiento, experimentación
    en notebooks, validación sobre train/val/test, comparación de configuraciones e hiperparámetros,
    evaluación de métricas, inferencia sobre video y pruebas de rendimiento se hacen en el servidor.
 3. **Material confidencial fuera de GitHub.** Datasets, videos, credenciales, configuraciones
    internas y cualquier otro material confidencial permanecen exclusivamente en la infraestructura
-   de Bnext, salvo autorización expresa.
+   de la empresa sponsor, salvo autorización expresa.
 4. **Contenido de GitHub.** Código, scripts, notebooks, documentación y definición de dependencias
    necesarios para los entregables del Tec.
-5. **Restringido por defecto.** Todo archivo o contenido entregado directamente por Bnext se
+5. **Restringido por defecto.** Todo archivo o contenido entregado directamente por la empresa sponsor se
    considera restringido y no se incorpora a GitHub sin su autorización.
 6. **Resultados.** Métricas, gráficas, salidas de inferencia y modelos entrenados se conservan en el
    servidor y se incorporan a GitHub o a los entregables solo cuando el Tec lo requiera.
 7. **Revisión previa.** Antes de publicar cualquier elemento que pueda contener información
-   sensible, propiedad intelectual o información derivada de recursos internos de Bnext, se revisa
-   con Bnext.
+   sensible, propiedad intelectual o información derivada de recursos internos de la empresa sponsor, se revisa
+   con la empresa sponsor.
 
 ## Cómo se aplica en este repositorio
 
@@ -39,10 +39,10 @@ organización. Complementa el convenio de confidencialidad (NDA) firmado por los
 
 - [ ] `git diff --cached` no contiene imágenes, videos, CSV/Parquet de datos ni pesos de modelo.
 - [ ] Ningún archivo menciona direcciones IP, nombres de host, usuarios del servidor ni repositorios
-      internos de Bnext.
+      internos de la empresa sponsor.
 - [ ] Ninguna salida de notebook incluye fotografías, recortes de producto, códigos de SKU reales o
-      nombres de clientes de Bnext.
+      nombres de clientes de la empresa sponsor.
 - [ ] Las figuras publicadas son agregados (distribuciones, correlaciones, varianza explicada,
       métricas).
-- [ ] Si algo deriva de recursos internos de Bnext y no es claramente agregado, se revisó con Bnext
+- [ ] Si algo deriva de recursos internos de la empresa sponsor y no es claramente agregado, se revisó con la empresa sponsor
       antes del push.

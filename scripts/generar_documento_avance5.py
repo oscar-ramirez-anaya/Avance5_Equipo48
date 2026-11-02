@@ -66,8 +66,8 @@ h2("s1", "1. Introducción")
 h3("s11", "1.1 Propósito")
 p("Este documento reporta el cierre de la fase de <b>Ingeniería del modelo</b> del proyecto, conforme a CRISP-ML(Q) (Visengeriyeva et al., 2023). Los mejores modelos individuales del Avance 4 se combinan en <b>modelos de ensamble</b> para identificar el SKU de cada producto, se comparan contra los individuales y se elige el modelo final con criterios de negocio. Se cubren los objetivos 3.5 (mejorar el rendimiento combinando las fortalezas de distintos modelos) y 3.6 (evaluar la calidad de las predicciones en datos no vistos).")
 p(f"La libreta ejecutada que respalda cada cifra, <code>Avance5.48.ipynb</code>, está en el repositorio <code>{REPO}</code>.")
-h3("s12", "1.2 Recomendaciones de la sesión con Bnext")
-p("En la revisión del Avance 4 con Bnext, el 28 de octubre de 2026, se acordó cómo cerrar el pipeline del planograma: foto del anaquel, detector de una sola clase, recortes, embedding, comparación contra una galería de SKU y planograma. Las recomendaciones que guían este avance son:")
+h3("s12", "1.2 Recomendaciones de la sesión con la empresa sponsor")
+p("En la revisión del Avance 4 con la empresa sponsor, el 28 de octubre de 2026, se acordó cómo cerrar el pipeline del planograma: foto del anaquel, detector de una sola clase, recortes, embedding, comparación contra una galería de SKU y planograma. Las recomendaciones que guían este avance son:")
 ol([
     "<b>Galería de SKU por carpeta.</b> El nombre de cada carpeta es el SKU y sus fotos son las referencias. Un recorte se identifica por similitud coseno contra la galería, con un umbral para declarar «desconocido». Un SKU nuevo se da de alta agregando su carpeta, sin reentrenar.",
     "<b>Aprendizaje de métrica</b> en lugar del entrenamiento auto-supervisado del Avance 4: ancla y positivo del mismo SKU, negativo de otro SKU, procesados por el mismo modelo.",
@@ -75,7 +75,7 @@ ol([
     "<b>Comparar tres pérdidas</b>: triplet con minado semi-difícil, multi-similitud y SupCon.",
     "<b>Fusión con color</b>: combinar DINOv2 con el histograma HSV, ganador del Avance 4.",
     "<b>Dejar SKU fuera del entrenamiento</b> para medir el reconocimiento de productos nuevos.",
-    "<b>Pendientes:</b> reentrenar el detector con refrigeradores, correr el pipeline completo en uno o dos refrigeradores y solicitar a Bnext el planograma esperado.",
+    "<b>Pendientes:</b> reentrenar el detector con refrigeradores, correr el pipeline completo en uno o dos refrigeradores y solicitar a la empresa sponsor el planograma esperado.",
 ])
 h3("s13", "1.3 Datos usados en esta ejecución")
 p("<b>Esta entrega se ejecutó con datos dummy.</b> Durante la ventana de entrega no hubo acceso a la infraestructura de la empresa sponsor, y por el acuerdo de confidencialidad sus datos no pueden salir de ella. Como datos dummy se usó un conjunto público con la misma estructura que la galería de SKU: el <i>Grocery Store Dataset</i> (Klasson et al., 2019), con licencia MIT. Contiene fotos tomadas con un teléfono en supermercados, organizadas en una carpeta por producto, y una imagen icónica de catálogo por producto (Tabla 1).")
@@ -107,7 +107,7 @@ tabla("t2", "Modelos individuales en prueba", ["Modelo", "Origen", "F1 macro", "
     ["DINOv2 + métrica, solo imagen icónica", "Galería de una foto por SKU", "0.748", "0.751", "0.974", "0.851"],
     ["Regresión logística sobre DINOv2 + métrica", "Algoritmo del Avance 3", "0.954", "0.953", "0.999", "0.973"],
 ])
-p("El aprendizaje de métrica es el cambio de mayor impacto: sube el F1 macro de DINOv2 de 0.668 a 0.940. El histograma HSV cae a 0.387, porque aquí hay frutas y verduras de colores parecidos y fotos con iluminación muy variable. Con los recortes de Bnext, de la misma cámara y el mismo anaquel, el color separaba mejor, así que su papel debe volver a medirse con la galería real.")
+p("El aprendizaje de métrica es el cambio de mayor impacto: sube el F1 macro de DINOv2 de 0.668 a 0.940. El histograma HSV cae a 0.387, porque aquí hay frutas y verduras de colores parecidos y fotos con iluminación muy variable. Con los recortes de la empresa sponsor, de la misma cámara y el mismo anaquel, el color separaba mejor, así que su papel debe volver a medirse con la galería real.")
 
 h2("s3", "3. Modelos de ensamble")
 tabla("t3", "Ensambles construidos", ["#", "Ensamble", "Estrategia", "Modelos base", "Optimización"], [
@@ -126,7 +126,7 @@ tabla("t4", "Top-1 de cada modelo base según dónde se mide", ["Modelo base", "
     ["DINOv2 + métrica", "0.996", "0.902", "0.934"],
     ["Imagen icónica", "0.795", "0.784", "0.751"],
 ])
-p("Por eso <b>todos los hiperparámetros, pesos y meta-modelos se ajustaron con el conjunto de validación</b>, que es de otra sesión de fotos, y la prueba se usó una sola vez. Lo mismo aplica a las carpetas de Bnext, donde las capturas de un SKU son de una misma sesión (Avance 3).")
+p("Por eso <b>todos los hiperparámetros, pesos y meta-modelos se ajustaron con el conjunto de validación</b>, que es de otra sesión de fotos, y la prueba se usó una sola vez. Lo mismo aplica a las carpetas de la empresa sponsor, donde las capturas de un SKU son de una misma sesión (Avance 3).")
 h3("s32", "3.2 Resultados de la optimización")
 ul([
     "<b>E1:</b> 600 árboles, <code>max_features = log2</code>, hoja mínima de 2 y clases balanceadas; F1 en validación de 0.913.",
@@ -163,7 +163,7 @@ tabla("t6", "Top-1 y top-5 en SKU vistos y nuevos (prueba)", ["Modelo", "Top-1 v
     ["DINOv2 + métrica + kNN", "0.935", "0.928", "0.998", "1.000"],
     ["<b>E4 Stacking</b>", "<b>0.937</b>", "<b>0.941</b>", "<b>1.000</b>", "<b>1.000</b>"],
 ])
-p("El aprendizaje de métrica generaliza a productos que no vio al entrenar: 0.928 de top-1 en SKU nuevos contra 0.935 en vistos. El stacking llega a 0.941 en los SKU nuevos, porque la imagen icónica y el DINOv2 original aportan señal que no depende del entrenamiento. Esto respalda el flujo de alta sin reentrenar. Solo se probaron 10 productos, así que debe repetirse con la galería de Bnext.")
+p("El aprendizaje de métrica generaliza a productos que no vio al entrenar: 0.928 de top-1 en SKU nuevos contra 0.935 en vistos. El stacking llega a 0.941 en los SKU nuevos, porque la imagen icónica y el DINOv2 original aportan señal que no depende del entrenamiento. Esto respalda el flujo de alta sin reentrenar. Solo se probaron 10 productos, así que debe repetirse con la galería de la empresa sponsor.")
 h3("s52", "5.2 Matriz de confusión")
 fig("f3", "celda-038", "Matriz de confusión normalizada por fila de los 15 SKU que participan en más errores.")
 p("Los errores se concentran en <b>variantes de la misma marca o familia</b>:")
@@ -174,7 +174,7 @@ ul([
     "satsumas con naranja (11);",
     "yogur Yoggi de fresa con el de vainilla (9).",
 ])
-p("En los productos en empaque cambia solo un texto o un color pequeño del envase, el mismo riesgo identificado para los refrigeradores de Bnext. Esto orienta dos acciones: usar esas variantes como negativos difíciles en el entrenamiento con métrica, y probar CLIP o SigLIP, que leen texto y logotipos.")
+p("En los productos en empaque cambia solo un texto o un color pequeño del envase, el mismo riesgo identificado para los refrigeradores de la empresa sponsor. Esto orienta dos acciones: usar esas variantes como negativos difíciles en el entrenamiento con métrica, y probar CLIP o SigLIP, que leen texto y logotipos.")
 h3("s53", "5.3 Curvas ROC y precisión-recall: productos desconocidos")
 p("Para medir si el modelo distingue un producto que no está en la galería, se retiraron de ella los 10 SKU nuevos y sus fotos de prueba se trataron como desconocidas (clase positiva).")
 fig("f4", "celda-041", "Curvas ROC y precisión-recall para detectar un SKU que no está en la galería.")
@@ -183,27 +183,27 @@ p("Se recomienda un pipeline en dos pasos: primero, un filtro de «desconocido»
 h3("s54", "5.4 Puntajes y umbral de decisión")
 fig("f5", "celda-044", "Distribución del puntaje del candidato elegido en aciertos y errores, y exactitud de lo decidido automáticamente al subir el umbral.")
 p("Los aciertos tienen puntajes de 1.5 a 4 y los errores de 0 a 1.5, con una zona de traslape. Al subir el umbral, la exactitud de lo que se decide automáticamente sube de 0.937 (todo) a 0.955 (90 %), 0.972 (80 %) y 0.980 (70 %).")
-p("Una política razonable es decidir automáticamente alrededor del 80 % de los productos y mandar el resto a revisión con sus cinco candidatos. El umbral final se fijará con Bnext según el costo de una alerta falsa frente al de una revisión manual.")
+p("Una política razonable es decidir automáticamente alrededor del 80 % de los productos y mandar el resto a revisión con sus cinco candidatos. El umbral final se fijará con la empresa sponsor según el costo de una alerta falsa frente al de una revisión manual.")
 h3("s55", "5.5 Importancia de los modelos base")
 fig("f6", "celda-047", "Coeficientes del meta-modelo del stacking y caída del F1 macro al retirar cada modelo base.")
 p("El stacking depende sobre todo de DINOv2 con métrica. Retirarlo baja el F1 macro en 0.081; retirar la imagen icónica, en 0.006. El DINOv2 original y el HSV casi no cambian el resultado.")
-p("Los coeficientes más altos son la distancia al mejor candidato de DINOv2 con métrica (4.5) y su puntaje estandarizado (2.4). Los coeficientes negativos de los puntajes estandarizados deben leerse junto con las distancias al mejor, con las que están correlacionados. El color no aporta en este conjunto, a diferencia del Avance 4 con datos de Bnext; su peso debe volver a estimarse con la galería real.")
+p("Los coeficientes más altos son la distancia al mejor candidato de DINOv2 con métrica (4.5) y su puntaje estandarizado (2.4). Los coeficientes negativos de los puntajes estandarizados deben leerse junto con las distancias al mejor, con las que están correlacionados. El color no aporta en este conjunto, a diferencia del Avance 4 con datos de la empresa sponsor; su peso debe volver a estimarse con la galería real.")
 h3("s56", "5.6 Desempeño por SKU")
 fig("f7", "celda-050", "F1 por SKU con el modelo final, por grupo de producto; el asterisco señala los SKU nuevos.")
-p("Las verduras son el grupo más fácil (F1 medio de 0.972) y las frutas siguen (0.935). Los productos en empaque son los más difíciles (0.923; mínimo de 0.683), justamente el grupo más parecido a los productos de refrigerador. Los SKU con menor F1 tienen todos una variante casi idéntica en la galería: yogur Yoggi de vainilla y de fresa, leches de soya Alpro y leche Arla semidescremada. Para Bnext, la prioridad de captura de fotos y de negativos difíciles deben ser las presentaciones de una misma marca.")
+p("Las verduras son el grupo más fácil (F1 medio de 0.972) y las frutas siguen (0.935). Los productos en empaque son los más difíciles (0.923; mínimo de 0.683), justamente el grupo más parecido a los productos de refrigerador. Los SKU con menor F1 tienen todos una variante casi idéntica en la galería: yogur Yoggi de vainilla y de fresa, leches de soya Alpro y leche Arla semidescremada. Para la empresa sponsor, la prioridad de captura de fotos y de negativos difíciles deben ser las presentaciones de una misma marca.")
 
 h2("s6", "6. Ejecución del 2 de noviembre con los datos de la empresa sponsor")
 ol([
-    "Copiar al Jetson las carpetas de SKU y las escenas de refrigerador, sin que salgan de la infraestructura de Bnext, y ejecutar la libreta con la ruta de esos datos.",
+    "Copiar al Jetson las carpetas de SKU y las escenas de refrigerador, sin que salgan de la infraestructura de la empresa sponsor, y ejecutar la libreta con la ruta de esos datos.",
     "Ensambles del detector: fusión ponderada de cajas (WBF; Solovyev et al., 2021) de FCOS y Faster R-CNN v2, que es heterogénea, y FCOS con aumentos en prueba, que es homogénea. Se ajustarán en validación con el protocolo del Avance 4.",
     "Correr el pipeline completo en uno o dos refrigeradores (detección, SKU, hilera y posición, huecos), reportando solo resultados agregados.",
-    "Solicitar a Bnext el planograma esperado y la correspondencia de las carpetas de agrupamiento con productos.",
+    "Solicitar a la empresa sponsor el planograma esperado y la correspondencia de las carpetas de agrupamiento con productos.",
 ])
 
 h2("s7", "7. Conclusiones")
 ol([
     "<b>Ensambles.</b> Se construyeron cinco con optimización de hiperparámetros: dos homogéneos (bosque aleatorio y gradient boosting) y tres heterogéneos (votación, stacking y blending) sobre los mejores modelos individuales.",
-    "<b>Mayor mejora.</b> Viene del aprendizaje de métrica recomendado por Bnext: el F1 macro pasa de 0.668 a 0.940, y los SKU nuevos se reconocen casi igual que los vistos.",
+    "<b>Mayor mejora.</b> Viene del aprendizaje de métrica recomendado por la empresa sponsor: el F1 macro pasa de 0.668 a 0.940, y los SKU nuevos se reconocen casi igual que los vistos.",
     "<b>Modelo final: stacking.</b> F1 macro de 0.940, top-1 de 0.937 y top-5 de 1.000. Es el mejor de los modelos que permiten dar de alta un SKU sin reentrenar.",
     "<b>Hallazgo metodológico.</b> Ajustar ensambles con validación cruzada dentro de las fotos de entrenamiento tiene fuga, por las ráfagas de fotos. Hay que ajustar con fotos de otra sesión.",
     "<b>Limitaciones.</b> Las cifras son de datos dummy y no de la empresa sponsor; el lunes 2 de noviembre se ejecuta con sus datos. Detectar productos desconocidos todavía no es confiable para automatizar. Los ensambles del detector están pendientes.",
@@ -213,11 +213,11 @@ h2("anexo", "Anexo A. Declaración de uso de IA y contribución del equipo")
 tabla("ta1", "Uso de herramientas de IA", ["Herramienta utilizada", "Propósito de uso", "Responsabilidad: qué revisó o validó el equipo"], [
     ["Anthropic. (2026). Claude (Opus 5.5) [Modelo de lenguaje grande]. https://claude.ai/",
      "Generar código de la libreta (carga de datos, aprendizaje de métrica, ensambles, optimización con Optuna y gráficas), búsqueda de un conjunto público como datos dummy, con la misma estructura que la galería de SKU, apoyo en la redacción de las interpretaciones y del reporte.",
-     "El equipo definió los modelos, las pérdidas y los ensambles a partir de la sesión con Bnext del 28 de octubre, revisó el código generado, ejecutó la libreta completa de principio a fin y validó cada cifra e interpretación contra las salidas."],
+     "El equipo definió los modelos, las pérdidas y los ensambles a partir de la sesión con la empresa sponsor del 28 de octubre, revisó el código generado, ejecutó la libreta completa de principio a fin y validó cada cifra e interpretación contra las salidas."],
 ])
 tabla("ta2", "Contribución individual", ["Integrante", "Contribución al avance"], [
-    ["Oscar Alberto Ramírez Anaya", "Incorporación de las recomendaciones de la sesión con Bnext, selección y preparación de los datos dummy, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio."],
-    ["Jesús Soto Medrano", "Propuesta de modelos y pérdidas de métrica en la sesión con Bnext (triplet, multi-similitud, SupCon y fusión con HSV), ensambles heterogéneos (votación, stacking y blending), tabla comparativa, elección del modelo final y análisis de las gráficas."],
+    ["Oscar Alberto Ramírez Anaya", "Incorporación de las recomendaciones de la sesión con la empresa sponsor, selección y preparación de los datos dummy, entrenamiento del embedding con aprendizaje de métrica, ensambles homogéneos (bosque aleatorio y gradient boosting), ejecución de la libreta, reporte y repositorio."],
+    ["Jesús Soto Medrano", "Propuesta de modelos y pérdidas de métrica en la sesión con la empresa sponsor (triplet, multi-similitud, SupCon y fusión con HSV), ensambles heterogéneos (votación, stacking y blending), tabla comparativa, elección del modelo final y análisis de las gráficas."],
 ])
 
 BIBLIO = [
@@ -275,7 +275,7 @@ def generar_html(figs, paginas):
           "<p><strong>Profesora:</strong> Dra. Grettel Barceló Alonso</p>",
           "<p><strong>Asesor:</strong> Dr. Raúl Valente Ramírez</p>",
           "<p><strong>Sponsor:</strong> Dr. Juan Arturo Nolazco Flores, Director del Hub de Ciencia de Datos, Tecnológico de Monterrey</p>",
-          "<p><strong>Organización:</strong> Bnext, Monterrey, Nuevo León</p>",
+          "<p><strong>Organización:</strong> empresa sponsor</p>",
           f'<p style="margin-top:4mm">{FECHA}</p>', "</div>\n</section>"]
     o.append('<h2>Índice</h2>\n<ul class="indice">')
     for b in B:
@@ -454,7 +454,7 @@ def generar_docx(figs, paginas):
     centrado("<b>Profesora:</b> Dra. Grettel Barceló Alonso", 9.5, antes=50)
     centrado("<b>Asesor:</b> Dr. Raúl Valente Ramírez", 9.5)
     centrado("<b>Sponsor:</b> Dr. Juan Arturo Nolazco Flores, Director del Hub de Ciencia de Datos, Tecnológico de Monterrey", 9.5)
-    centrado("<b>Organización:</b> Bnext, Monterrey, Nuevo León", 9.5)
+    centrado("<b>Organización:</b> empresa sponsor", 9.5)
     centrado(FECHA, 9.5, RGBColor(0x66, 0x66, 0x66), antes=8)
     # índice (campo TOC; Word lo actualiza al abrir)
     d.add_paragraph().add_run().add_break(WD_BREAK.PAGE)

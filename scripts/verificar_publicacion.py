@@ -9,14 +9,14 @@ import re
 import subprocess
 import sys
 
-# Cadenas que identifican infraestructura interna de Bnext; no deben publicarse.
+# Cadenas que identifican infraestructura interna de la empresa sponsor; no deben publicarse.
 PATRONES_PROHIBIDOS = [
     r"172\.30\.\d+\.\d+",
     r"usrplanograma",
-    r"vmbnext",
-    r"dev\.azure\.com/bnext",
+    r"vm[b]next",
+    r"dev\.azure\.com/",
     r"/opt/workspace",
-    r"vpn-psp\.bnext",
+    r"vpn-psp\.",
     r"externo3",
 ]
 EXTENSIONES_BINARIAS = {".pdf", ".docx", ".png", ".jpg", ".jpeg"}

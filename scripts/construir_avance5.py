@@ -40,7 +40,7 @@ md("""
 | Germán Eduardo Rodríguez Vázquez | A01796325 |
 | Jesús Soto Medrano | A01794746 |
 
-Profesora: Dra. Grettel Barceló Alonso · Asesor: Dr. Raúl Valente Ramírez · Patrocinador: Dr. Juan Arturo Nolazco Flores · Organización: Bnext
+Profesora: Dra. Grettel Barceló Alonso · Asesor: Dr. Raúl Valente Ramírez · Patrocinador: Dr. Juan Arturo Nolazco Flores · Organización: empresa sponsor
 
 ---
 
@@ -62,11 +62,11 @@ curso que se cubren:
 """)
 
 md("""
-## 1. Contexto: sesión con Bnext del 28 de octubre y datos de este avance
+## 1. Contexto: sesión con la empresa sponsor del 28 de octubre y datos de este avance
 
 ### 1.1 Recomendaciones de la sesión
 
-En la revisión del Avance 4 con Bnext (28 de octubre de 2026) se acordó cómo cerrar el pipeline
+En la revisión del Avance 4 con la empresa sponsor (28 de octubre de 2026) se acordó cómo cerrar el pipeline
 de la Figura 1 del Avance 4 (foto del anaquel, detector de una sola clase, recortes, embedding,
 comparación contra una galería de SKU y planograma). Las recomendaciones que guían este avance son:
 
@@ -88,7 +88,7 @@ comparación contra una galería de SKU y planograma). Las recomendaciones que g
    (los primeros candidatos por DINOv2 y desempate por color).
 6. **Dejar SKU fuera del entrenamiento** para medir el reconocimiento de productos nuevos.
 7. **Pendientes de la sesión:** reentrenar el detector con escenas de refrigerador, aplicar el
-   pipeline completo en uno o dos refrigeradores y solicitar a Bnext el planograma esperado para
+   pipeline completo en uno o dos refrigeradores y solicitar a la empresa sponsor el planograma esperado para
    señalar faltantes de un SKU concreto.
 
 ### 1.2 Datos usados en esta ejecución
@@ -489,7 +489,7 @@ dentro de entrenamiento: dividir la galería en 5 particiones y comparar cada fo
 otras cuatro. La celda siguiente muestra que esa estimación **tiene fuga**: HSV obtiene un top-1
 fuera de partición cercano a 0.95 y en prueba de 0.42. Las fotos de cada producto se tomaron en
 ráfagas, y dentro de entrenamiento cada foto tiene "gemelas" casi idénticas en las otras
-particiones. Lo mismo ocurre en las cuentas de Bnext, donde las capturas de una carpeta son de la
+particiones. Lo mismo ocurre en las cuentas de la empresa sponsor, donde las capturas de una carpeta son de la
 misma sesión (Avance 3).
 
 Por eso **todos los hiperparámetros, pesos y meta-modelos de los ensambles se ajustan contra el
@@ -888,7 +888,7 @@ md("""
 ### 7.6 Desempeño por SKU
 
 F1 de cada SKU con el modelo final, coloreado por grupo de producto. Los productos en empaque
-son los más cercanos a los productos de refrigerador de Bnext.
+son los más cercanos a los productos de refrigerador de la empresa sponsor.
 """)
 code(r"""
 from sklearn.metrics import precision_recall_fscore_support
@@ -914,19 +914,19 @@ interpretacion('porsku')
 md("""
 ## 8. Ejecución del 2 de noviembre de 2026 con los datos de la empresa sponsor
 
-El código de esta libreta corre sin cambios sobre la galería de Bnext: cada carpeta es un SKU y
+El código de esta libreta corre sin cambios sobre la galería de la empresa sponsor: cada carpeta es un SKU y
 se reemplaza la partición oficial por una partición por foto dentro de cada carpeta. Al
 recuperar el acceso al Jetson y al servidor, faltan cuatro tareas:
 
 1. Copiar al Jetson las carpetas de SKU y las escenas de refrigerador, sin que salgan de la
-   infraestructura de Bnext, y ejecutar la libreta con `A5_DATA_DIR` apuntando a ellas.
+   infraestructura de la empresa sponsor, y ejecutar la libreta con `A5_DATA_DIR` apuntando a ellas.
 2. **Ensambles del detector:** fusión ponderada de cajas (WBF) de FCOS y Faster R-CNN v2, que es
    un ensamble heterogéneo, y FCOS con aumentos en prueba (volteo y multiescala), que es
    homogéneo. Se ajustarán los pesos y los umbrales de IoU en validación con el protocolo del
    Avance 4 (mAP@[.5:.95], recall y error de conteo).
 3. Ejecutar el pipeline completo en uno o dos refrigeradores (detección, SKU, hilera y posición,
    huecos), con resultados solo agregados conforme a `POLITICA_DATOS.md`.
-4. Solicitar a Bnext el planograma esperado para señalar faltantes de un SKU concreto, y la
+4. Solicitar a la empresa sponsor el planograma esperado para señalar faltantes de un SKU concreto, y la
    correspondencia de las carpetas `cluster_NNN` con productos.
 """)
 

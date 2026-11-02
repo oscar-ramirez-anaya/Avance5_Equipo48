@@ -16,7 +16,7 @@
 | Jesús Soto Medrano | A01794746 |
 
 **Profesora:** Dra. Grettel Barceló Alonso · **Asesor:** Dr. Raúl Valente Ramírez<br>
-**Sponsor:** Dr. Juan Arturo Nolazco Flores · **Organización:** Bnext
+**Sponsor:** Dr. Juan Arturo Nolazco Flores · **Organización:** empresa sponsor
 
 </div>
 
@@ -28,7 +28,7 @@
 
 ## Resumen
 
-Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos individuales del Avance 4 (histograma HSV y DINOv2) y el embedding recomendado en la sesión con Bnext del 28 de octubre (DINOv2 con aprendizaje de métrica) se combinan en **cinco ensambles, homogéneos y heterogéneos**, para identificar el SKU de cada producto contra una galería con una carpeta por SKU. Después se elige el modelo final con criterios de negocio.
+Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos individuales del Avance 4 (histograma HSV y DINOv2) y el embedding recomendado en la sesión con la empresa sponsor del 28 de octubre (DINOv2 con aprendizaje de métrica) se combinan en **cinco ensambles, homogéneos y heterogéneos**, para identificar el SKU de cada producto contra una galería con una carpeta por SKU. Después se elige el modelo final con criterios de negocio.
 
 > **Esta entrega se ejecutó con datos dummy.** Durante la ventana de entrega no hubo acceso a la infraestructura de la empresa sponsor, y por el acuerdo de confidencialidad sus datos no pueden salir de ella. Como datos dummy se usó el *Grocery Store Dataset* (Klasson et al., 2019; licencia MIT), que tiene la misma estructura de una carpeta por producto. Las cifras validan el método y **no son resultados sobre datos de la empresa sponsor**.
 >
@@ -80,10 +80,10 @@ Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos i
 
 ## Ejecución del lunes 2 de noviembre con los datos de la empresa sponsor
 
-- Ejecutar la libreta en el Jetson con la galería de SKU de Bnext.
+- Ejecutar la libreta en el Jetson con la galería de SKU de la empresa sponsor.
 - Hacer los ensambles del detector (WBF de FCOS y Faster R-CNN, FCOS con TTA).
 - Correr el pipeline completo en uno o dos refrigeradores.
-- Solicitar a Bnext el planograma esperado.
+- Solicitar a la empresa sponsor el planograma esperado.
 
 ## Contenido del repositorio
 
@@ -96,7 +96,7 @@ Fase de **Ingeniería del modelo** de CRISP-ML(Q), cierre. Los mejores modelos i
 | `scripts/construir_avance5.py` | Genera la libreta; las interpretaciones están en `avance5_textos.json` |
 | `scripts/generar_documento_avance5.py` | Genera HTML, PDF y DOCX con las figuras de la libreta ejecutada |
 | `scripts/verificar_publicacion.py`, `.githooks/` | Verificación previa a cada commit |
-| `POLITICA_DATOS.md` | Acuerdo de manejo de datos con Bnext |
+| `POLITICA_DATOS.md` | Acuerdo de manejo de datos con la empresa sponsor |
 
 ## Reproducir
 
@@ -108,7 +108,7 @@ A5_PERFIL=completo .venv/bin/jupyter nbconvert --to notebook --execute --inplace
 .venv/bin/pip install pymupdf python-docx && .venv/bin/python scripts/generar_documento_avance5.py
 ```
 
-Para la galería de Bnext se define `A5_DATA_DIR` con la ubicación de los datos dentro de su infraestructura, conforme a [`POLITICA_DATOS.md`](POLITICA_DATOS.md).
+Para la galería de la empresa sponsor se define `A5_DATA_DIR` con la ubicación de los datos dentro de su infraestructura, conforme a [`POLITICA_DATOS.md`](POLITICA_DATOS.md).
 
 ## Uso de IA
 

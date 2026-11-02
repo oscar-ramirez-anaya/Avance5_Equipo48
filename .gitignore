@@ -29,7 +29,7 @@ credentials.json
 service-account*.json
 secrets/
 
-# ---- Resultados de experimentos (se quedan en el servidor de Bnext) ----
+# ---- Resultados de experimentos (se quedan en el servidor de la empresa sponsor) ----
 outputs/
 results/
 artifacts/
@@ -68,7 +68,7 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Recursos gráficos institucionales de los entregables (no son datos de Bnext)
+# Recursos gráficos institucionales de los entregables (no son datos de la empresa sponsor)
 !assets/*.png
 
 # Gráficas agregadas del entregable (sin fotografías ni recortes)
